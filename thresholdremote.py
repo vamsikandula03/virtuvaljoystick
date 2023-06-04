@@ -7,6 +7,7 @@ import keyboard as kk
 mphands=mp.solutions.hands
 hands=mphands.Hands()
 mpdraw=mp.solutions.drawing_utils
+count=5
 def fingerup(pos):
     flags=[0,0]
 
@@ -44,9 +45,7 @@ while cap.isOpened():
                      kk.release('s')
                      kk.release('d')
                      kk.release('a')
-                     # if(fingerup(positions)==[1,1]):
-                     #     keyboard.press('space')
-                     #     keyboard.release('space')
+
 
 
                   if(cx>400):
@@ -71,6 +70,13 @@ while cap.isOpened():
                       kk.release('s')
                       # pyt.press('W',presses=20)
           # print(positions)
+          if(fingerup(positions)==[1,1]):
+              if count==0:
+                keyboard.press('space')
+                keyboard.release('space')
+                count=5
+              else:
+                  count-=1
 
 
 
@@ -82,4 +88,7 @@ while cap.isOpened():
 
   cv2.imshow("innn",img)
 
-  cv2.waitKey(1)
+  if cv2.waitKey(1) &  0xFF ==ord('q'):
+    break
+cap.release()
+cv2.destroyAllWindows()
